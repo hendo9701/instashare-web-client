@@ -4,9 +4,11 @@ import {catchError, Observable, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {SigninModel} from "../models/signin";
 import {SigninResponseModel} from "../models/signinResponse";
+import {PersistedCredentials} from "../models/persistedCredentials";
 
 export const ACCESS_TOKEN: string = 'InstashareAccessKey';
 export const LOGGED_USER_EMAIL: string = 'LoggedUserEmail';
+export const PERSISTED_CREDENTIALS: string = 'PersistedCredentials';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +41,19 @@ export class AuthService {
 
   setUser(email: string): void {
     localStorage.setItem(LOGGED_USER_EMAIL, email);
+  }
+
+  getPersistedCredentials(): PersistedCredentials {
+    const credentials = localStorage.getItem(PERSISTED_CREDENTIALS);
+    if (credentials) {
+      return JSON.parse(credentials);
+    } else {
+      return new PersistedCredentials();
+    }
+  }
+
+  setPersistedCredentials(persistedCredentials: PersistedCredentials): void {
+    localStorage.setItem(PERSISTED_CREDENTIALS, JSON.stringify(persistedCredentials));
   }
 
   login(email: string, password: string): Observable<any> {

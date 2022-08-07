@@ -33,7 +33,7 @@ export class FilesGridComponent implements OnInit {
       priority: false
     },
     {
-      title: 'Size',
+      title: 'Size (Mb)',
       compare: (a: FileModel, b: FileModel) => a.size - b.size,
       priority: false
     },
@@ -73,11 +73,13 @@ export class FilesGridComponent implements OnInit {
     });
   }
 
+  truncateSize(size: number) {
+    const sizeInMb = size/1048576;
+    return Number(sizeInMb.toFixed(4));
+  }
+
   onCurrentPageDataChange(): void {
     this.fileService.getFiles(this.pageSize, this.current - 1).subscribe(fileList => {
-      console.log(this.pageSize);
-      console.log(this.current - 1);
-      console.log(fileList);
       this.listOfData = fileList;
     });
   }

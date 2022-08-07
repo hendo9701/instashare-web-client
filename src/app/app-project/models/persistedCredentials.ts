@@ -1,0 +1,15 @@
+export class PersistedCredentials {
+  email?: string = '';
+  password?: string = '';
+  remember?: boolean = true;
+
+  constructor(
+    email?: string,
+    password?: string,
+    remember?: boolean
+  ) {
+    this.email = email;
+    this.password = password;
+    this.remember = remember;
+  }
+}

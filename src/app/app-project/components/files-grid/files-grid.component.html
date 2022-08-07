@@ -33,7 +33,7 @@
               <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.fileName"
                      (blur)="stopEdit(data)"/>
             </td>
-            <td>{{ data.size }}</td>
+            <td>{{ truncateSize(data.size) }}</td>
             <td>{{ data.mimeType }}</td>
             <td>{{ data.fileStatus }}</td>
             <td [nzAlign]="'center'">
@@ -67,12 +67,13 @@
     <nz-sider nzWidth="250px" nzHeight="100vh" nzTheme="light" class="sider-color">
       <div class="clearfix upload-margins">
         <nz-upload
+          class="upload-list-inline"
           [nzCustomRequest]="handleUpload"
           [nzMultiple]="true"
           [(nzFileList)]="fileList1"
           nzListType="picture"
         >
-          <button nz-button nzType="primary" nzBlock style="background-color: #6200EE; border-color: whitesmoke; width: 10vw; align-content: center">
+          <button nz-button nzType="primary" nzBlock style="background-color: #6200EE; border-color: whitesmoke; align-content: center">
             <i nz-icon nzType="upload"></i>
             Upload
           </button>

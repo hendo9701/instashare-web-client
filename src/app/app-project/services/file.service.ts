@@ -15,6 +15,9 @@ export class FileService {
   constructor(
     protected http: HttpClient,
     private authService: AuthService) {
+  }
+
+  getToken() {
     const token = this.authService.getToken();
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -23,6 +26,7 @@ export class FileService {
   }
 
   getCount(): Observable<number> {
+    this.getToken();
     return this.http.get<number>(`${environment.apiUrl}/v1/files/count`, { headers: this.headers })
       .pipe(
         catchError(err => {
@@ -32,6 +36,7 @@ export class FileService {
   }
 
   getFiles(size: number, skip: number): Observable<FileModel[]> {
+    this.getToken();
     return this.http.get<FileModel[]>(`${environment.apiUrl}/v1/files?size=${size}&skip=${skip}`, { headers: this.headers })
       .pipe(
         catchError(err => {
@@ -41,7 +46,7 @@ export class FileService {
   }
 
   updateFileName(id: string, renameFileModel: RenameFileModel): Observable<File> {
-
+    this.getToken();
     return this.http.patch<File>(`${environment.apiUrl}/v1/files/${id}`, renameFileModel, { headers: this.headers })
       .pipe(
         catchError(err => {
@@ -50,16 +55,8 @@ export class FileService {
       );
   }
 
-  downloadFile(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/v1/files/${id}`, { headers: this.headers })
-      .pipe(
-        catchError(err => {
-          return throwError(err);
-        })
-      );
-  }
-
   downloadLink(id: string) {
+    this.getToken();
     let x = this.http.get(`${environment.apiUrl}/v1/files/${id}`, {
       headers: this.headers,
       observe: 'response',
