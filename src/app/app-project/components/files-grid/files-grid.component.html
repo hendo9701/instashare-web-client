@@ -1,0 +1,83 @@
+<nz-layout class="layout-scroll">
+  <nz-header style="background-color: #6200EE;">
+    <div class="logo"></div>
+    <div class="logout">
+      <button nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="logout" (click)="logout()"></i></button>
+    </div>
+    <div class="user">
+      {{loggedUserEmail}}
+    </div>
+  </nz-header>
+  <nz-layout style="background-color: white; height: 92vh">
+    <nz-content>
+      <div class="inner-class">
+        <nz-table #sortTable [nzData]="listOfData"
+                  nzTableLayout="fixed"
+                  [nzPageSize]="10"
+                  [nzFrontPagination]="false"
+                  #editRowTable>
+          <thead>
+          <tr>
+            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+              {{ column.title }}
+            </th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of sortTable.data" class="editable-row">
+            <td>
+              <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+                {{ data.fileName }}
+              </div>
+              <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.fileName"
+                     (blur)="stopEdit(data)"/>
+            </td>
+            <td>{{ data.size }}</td>
+            <td>{{ data.mimeType }}</td>
+            <td>{{ data.fileStatus }}</td>
+            <td [nzAlign]="'center'">
+              <button [disabled]="data.fileStatus!='COMPRESSED'" nz-button
+                      [ngClass]="data.fileStatus!='COMPRESSED' ? '' : 'enabled-button'"
+                      (click)="downloadFile(data.id, data.fileName)">
+                <i nz-icon nzType="download"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+        <br/>
+        <div class="center">
+          <nz-pagination
+            [(nzPageIndex)]="current"
+            [(nzPageSize)]="pageSize"
+            [nzTotal]="total"
+            [nzSize]="'small'"
+            nzShowSizeChanger
+            nzShowQuickJumper
+            [nzShowTotal]="totalTemplate"
+            (nzPageIndexChange)="onCurrentPageDataChange()"
+            (nzPageSizeChange)="onCurrentPageDataChange()"
+          ></nz-pagination>
+        </div>
+        <br/>
+        <ng-template #totalTemplate>Total {{ total }} items</ng-template>
+      </div>
+    </nz-content>
+    <nz-sider nzWidth="250px" nzHeight="100vh" nzTheme="light" class="sider-color">
+      <div class="clearfix upload-margins">
+        <nz-upload
+          [nzCustomRequest]="handleUpload"
+          [nzMultiple]="true"
+          [(nzFileList)]="fileList1"
+          nzListType="picture"
+        >
+          <button nz-button nzType="primary" nzBlock style="background-color: #6200EE; border-color: whitesmoke; width: 10vw; align-content: center">
+            <i nz-icon nzType="upload"></i>
+            Upload
+          </button>
+        </nz-upload>
+      </div>
+    </nz-sider>
+  </nz-layout>
+</nz-layout>
