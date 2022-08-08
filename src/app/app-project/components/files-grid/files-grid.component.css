@@ -1,8 +1,6 @@
 .logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 24px 16px 0;
+  margin-top: 2px;
+  margin-left: -35px;
   float: left;
 }
 
@@ -85,7 +83,7 @@ nz-footer {
 }
 
 .enabled-button {
-  background-color: #6200EE;
+  background-color: #1976D2;
   color: white
 }
 

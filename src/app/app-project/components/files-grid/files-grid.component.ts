@@ -107,8 +107,6 @@ export class FilesGridComponent implements OnInit {
         });
   }
 
-  //Upload
-
   defaultFileList: NzUploadFile[] = [];
 
   fileList1 = [...this.defaultFileList];
@@ -119,6 +117,10 @@ export class FilesGridComponent implements OnInit {
     return this.http.post(this.uploadUrl, formData, {headers: this.headers}).subscribe(
       res => {
         item.onSuccess(item.file);
+        this.fileService.getFiles(this.pageSize, 0).subscribe(fileList => {
+          this.listOfData = fileList;
+          console.log(res)
+        });
       },
       (err) => {
         item.onError(err, item.file);

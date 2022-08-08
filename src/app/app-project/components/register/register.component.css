@@ -1,13 +1,51 @@
 .container {
   background-color: #d8dae6;
-  width: 100vw;
-  height: 100vh;
+  height: 100vh !important;
+}
+
+.tittle {
+  margin-top: 28vh;
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
 }
 
 .center {
+  margin-top: 2vh;
   display: flex;
-  height: 100vh;
   justify-content: center;
   align-items: center;
+}
+
+.logo-container {
+  background-color: #1976D2;
+}
+
+.logo {
+  margin-top: 42vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+.input-width {
+  width: 300px !important;
 }
 
