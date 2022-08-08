@@ -33,7 +33,7 @@ export class FilesGridComponent implements OnInit {
       priority: false
     },
     {
-      title: 'Size (Mb)',
+      title: 'Size (kB)',
       compare: (a: FileModel, b: FileModel) => a.size - b.size,
       priority: false
     },
@@ -74,7 +74,7 @@ export class FilesGridComponent implements OnInit {
   }
 
   truncateSize(size: number) {
-    const sizeInMb = size/1048576;
+    const sizeInMb = size/1024;
     return Number(sizeInMb.toFixed(4));
   }
 
